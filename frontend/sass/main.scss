@@ -1,0 +1,115 @@
+@import "./partials/Utils/variables.scss";
+@import "./partials/Utils/mixins.scss";
+@import "./partials/base/base";
+@import "./partials/components/button.scss";
+@import "./partials/components/title.scss";
+@import "./partials/components/input.scss";
+@import "./partials/components/textarea.scss";
+@import "./partials/components/link.scss";
+@import "./partials/components/paragraph.scss";
+
+.background__form {
+    padding: 20% 10%;
+    @include background_form;
+    &--signup, &--login {
+        @include background_form;
+        padding: 5% 5%;
+        padding-right: 7%;
+        @media (min-width: 768px) {
+            margin: 7% 10%;
+        }
+        @media (min-width: 1200px) {
+            padding: 2% 3%;
+            margin: 2% 35%;
+        }
+    }
+    @media (min-width: 1200px) {
+        padding: 7% 10%;
+        margin: 6% 20%;
+    }
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.inverse__link {
+    font-size: 3.5vw;
+    margin-top: 3%;
+    margin-bottom: 12%;
+    @media (min-width: 768px) {
+        font-size: 2.6vw;
+    }
+    @media (min-width: 1200px) {
+        font-size: 1vw;
+        margin-bottom: 0;
+    }
+}
+
+.article {
+    margin: 5% 2%;
+    padding: 1%;
+    background-color: #fff;
+    border-radius: 5px 5px;
+    border: 2px $colour-tertiary solid;
+    @media (min-width: 1200px) {
+    width: 50%;
+    margin: 1.5% auto;
+    }
+}
+
+.profil {
+    display:flex;
+    flex-direction: column-reverse;
+}
+
+.intro__profil {
+    display:flex;
+    justify-content: center;
+    margin-top: 2%;
+}
+
+.profil__picture {
+    margin-right: 2%;
+}
+
+.profil__nav {
+    padding: 5%;
+}
+
+.img__auto {
+    width:  55%;
+    @media (min-width: 1200px) {
+        width: 10%;
+    }
+}
+
+.publishing {
+    display:flex;
+    flex-direction: column;
+}
+
+.delete {
+    display:flex;
+    justify-content: center;
+    padding-top: 100%;
+    @media (min-width: 768px) {
+        padding-top: 75%;
+    }
+    @media (min-width: 992px) {
+        padding-top: 50%;
+    }
+    @media (min-width: 1200px) {
+        padding-top: 25%;
+    }
+}
+
+.actions__post {
+    margin:auto;
+    padding: 0;
+
+    display:flex;
+    justify-content: space-around;
+}

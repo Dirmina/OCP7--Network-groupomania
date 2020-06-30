@@ -1,0 +1,9 @@
+@mixin background-form {
+    margin: 10%;
+    border: lighten($colour-tertiary, 30%) 1px solid;
+    border-radius: 15px 15px;
+    background-color: #fff;
+    box-shadow: 5px 5px 10px $colour-tertiary;
+    display:flex;
+    flex-direction: column;
+}

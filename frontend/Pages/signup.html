@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Groupomania Network | Inscription</title>
+        <meta name="description" content="Inscription au réseau social interne de Groupomania">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="../css/style.css">
+    </head>
+    <body>
+        <header class="header">
+            <img class="img__auto" src="../assets/images/icon-left-font-monochrome-white.png" alt="bannière de groupomania" />
+        </header>
+
+        <section class="background__form--signup">
+            <h1>S'inscrire</h1>
+
+            <form method="post">
+                <label for="firstName">Prénom<strong>*</strong> : </label>
+                <input type="text" name="firstName" id="firstName" placeholder="Jean" pattern="^[A-Za-zàâäéèêëïîôöùûüç]+([-']{1}[A-Za-zàâäéèêëïîôöùûüç]+)*$" required/><br />
+
+                <label for="lastName">Nom<strong>*</strong> : </label>
+                <input type="text" name="lastName" id="lastName" placeholder="Dupont" pattern="^[A-Za-zàâäéèêëïîôöùûüç]+([ \-']{1}[A-Za-zàâäéèêëïîôöùûüç]+)*$" required/><br />
+                
+                <label for="email">E-mail<strong>*</strong> : </label>
+                <input type="email" name="email" id="email" placeholder="jean.dupont@mail.com" required /><br />
+
+                <label for="password">Mot de passe<strong>*</strong> : </label>
+                <input type="password" name="password" id="password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$" title="doit contenir au moins 8 caractères, 1 Majuscule, 1 minuscule et 1 chiffre" required /><br />
+
+                <label for="verifyPassword">Vérification du mot de passe<strong>*</strong> : </label>
+                <input type="password" name="verifyPassword" id="verifyPassword" required /><br />
+
+                <a href="login.html" class="inverse__link">Vous êtes déjà inscrit ?</a>
+                <button type="submit" class="button__link" id="submitButton" disabled>Envoyer</button>
+            </form>
+        </section>
+        
+        <script src="../js/signup.js" async defer></script>
+    </body>
+</html>

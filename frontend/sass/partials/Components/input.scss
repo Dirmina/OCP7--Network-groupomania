@@ -1,0 +1,52 @@
+@import "../Utils/variables.scss";
+
+input {
+    width: 100%;
+    border-radius: 30px;
+    line-height: 30px;
+    border: $colour-tertiary 1px solid;
+    margin: auto;
+    padding-left: 2%;
+    @media (min-width: 768px) {
+        margin: 3% auto;
+        padding: 2% ;
+        font-size: 2.6vw;
+    }
+    @media (min-width:1200px) {
+        margin: 1% auto;
+        padding: 1%;
+        font-size:1vw;
+    }
+}
+input:valid {
+    border: 2px green solid;
+}
+input:invalid {
+    border: 2px #f00 solid;
+} 
+.input__patch {
+    width: auto;
+    @media (min-width:1200px) {
+        width: 80%;
+        margin:auto;
+        margin-top: 2%;
+    }
+}
+
+.input__submit {
+    margin:auto;
+    @media (min-width:1200px) {
+        width: 80%;
+        margin:auto;
+        margin-top: 9%;
+    }
+    &--patch {
+        width: auto;
+        margin: 2% 20%;
+        @media (min-width:1200px) {
+            width: 80%;
+            margin:auto;
+            margin-top: 2%;
+        }
+    }
+}

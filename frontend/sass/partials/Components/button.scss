@@ -1,0 +1,73 @@
+@import "../Utils/variables.scss";
+
+.button__link {
+    background-color: $colour-primary;
+    border-radius: 30px 30px;
+    border-color: $colour-tertiary;
+    border-style: solid;
+    padding: 3% 5%;
+    text-align: center;
+    color: rgb(219, 219, 253);
+    text-decoration: none;
+    @media (min-width: 768px) { 
+        font-size: 2.6vw;
+    }
+    @media (min-width: 1200px) {
+        font-size: 1.3vw;
+    }
+    &--signup {
+        margin-bottom: 15%;
+    }
+}
+
+.button__link:active, .button__link--signup:active {
+    background-color: #c3c3e7;
+}
+
+.modify__profil {
+    border-radius: 50%;
+    border: 2px darken($colour-primary,5) solid;
+    padding: 5%;
+    position: absolute;
+    right: 52%;
+    top: 18%;
+    @media (min-width: 768px) {
+        padding: 3%;
+        right: 56%;
+        top: 20%;
+    }
+}
+
+.button__nav {
+    background-color: $colour-secondary;
+    border: $colour-tertiary 1px solid;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 20%;
+    height: auto;
+    @media (min-width: 1200px) {
+        width: 7%;
+    }
+    &--arrow {
+        @media (min-width: 768px) {
+            padding: 0 10%;
+        }
+        &:active {
+            color: #fff;
+        }
+    }
+}
+
+.delete__account {
+    @media (min-width: 768px) {
+        font-size: 2.6vw;
+    }
+    @media (min-width: 1200px) {
+        font-size: 1.3vw;
+    }
+}
+
+.button__add--post {
+    margin:auto;
+}

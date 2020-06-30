@@ -1,0 +1,15 @@
+.article__p {
+    @media (min-width: 992px) {
+        font-size: 2.6vw;
+    }
+    @media (min-width: 1200px) {
+        font-size: 1.3vw;
+    }
+}
+
+.p__count {
+    font-size: 2.6vw;
+    @media (min-width: 1200px) {
+        font-size: 0.7vw
+    }
+}

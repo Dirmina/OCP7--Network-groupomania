@@ -1,0 +1,26 @@
+.pseudo__link {
+    font-weight: bold;
+    text-decoration: none;
+    @media (min-width:992px) {
+        font-size: 2.9vw;
+    }
+    @media (min-width: 1200px) {
+        font-size: 1.3vw;
+    }
+}
+
+.article__link {
+    display:block;
+    color: $colour-secondary;
+    @media (min-width: 768px) {
+        font-size: 3.2vw;
+    }
+    @media (min-width: 1200px) {
+        font-size: 0.8vw;
+    }
+   
+}
+
+.link__post {
+    color: $colour-primary;
+}
