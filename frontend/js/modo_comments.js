@@ -35,7 +35,7 @@ function generationComments(comments) {
         const article = document.createElement('article');
         article.className= "article"
 
-        //création de l'article 'camera' avec newUrl de urlDynamique();
+        //création du commentaire;
         article.innerHTML =`<img src="https://picsum.photos/34" />
             <a href="${newUrlProfil}" class="pseudo__link">${comment.firstName} ${comment.lastName}</a>
             <p class="article__p">${comment.content}</p>
@@ -70,6 +70,8 @@ function generationComments(comments) {
     }     
 }
 
+
+//Programme :
 fetch('http://localhost:3000/api/modo/comments',  {
     headers: { "Authorization": `Bearer ${localStorage.token}`}
 })

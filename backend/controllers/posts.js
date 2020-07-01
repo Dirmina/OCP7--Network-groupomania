@@ -1,7 +1,10 @@
+//Modules :
 const mysql = require('mysql');
 const jwt = require('jsonwebtoken');
+//Connexion DB :
 const connectdb = require('../database/connection-db');
 
+//Création d'une publication :
 exports.createPost = (req, res, next) => {
     let content = req.body.content;
     let userId = req.body.userId;
@@ -18,6 +21,7 @@ exports.createPost = (req, res, next) => {
     .catch(error => res.status(400).json({ error }));
 }
 
+//Voir tous les posts :
 exports.getAllPosts = (req, res, next) => {
     let sql = `SELECT posts.id, posts.userId, posts.content,
     DATE_FORMAT(DATE(posts.date_creation), '%d/%m/%Y') AS date, TIME(posts.date_creation) AS time, posts.likes,
@@ -35,6 +39,7 @@ exports.getAllPosts = (req, res, next) => {
     .catch (error => res.status(200).json({ error } ))
 }
 
+//Voir une publication :
 exports.getAPosts = (req, res, next) => {
     let sql = `SELECT posts.id, posts.userId, posts.content,
     DATE_FORMAT(DATE(posts.date_creation), '%d/%m/%Y') AS date, TIME(posts.date_creation) AS time, posts.likes,
@@ -56,6 +61,7 @@ exports.getAPosts = (req, res, next) => {
     .catch (error => res.status(200).json({ error } ))
 }
 
+//Mettre à jour son post :
 exports.updatePost = (req, res, next) => {
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, 'serBsSjzVclhImFAF6UNLCHlH6pvh3Fr');

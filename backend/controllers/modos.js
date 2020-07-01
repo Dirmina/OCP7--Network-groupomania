@@ -1,12 +1,16 @@
+//Modules :
 const mysql = require('mysql');
 const jwt = require('jsonwebtoken');
+
+//Connexion DB :
 const connectdb = require('../database/connection-db');
 
+//Récupérer tous les posts :
 exports.getAllPosts = (req, res, next) => {
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, 'serBsSjzVclhImFAF6UNLCHlH6pvh3Fr');
     const mod = decodedToken.moderation;
-    console.log(decodedToken);
+    //Si la personne a des droits Admin :
     if(mod == 1) {
         let sql = `SELECT posts.id, posts.userId, posts.content,
         DATE_FORMAT(posts.date_creation, '%d/%m/%Y à %H:%i:%s') AS date, posts.likes, 
@@ -28,6 +32,7 @@ exports.getAllPosts = (req, res, next) => {
     }
 }
 
+//Supprimer un post :
 exports.deletePost = (req, res, next) => {
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, 'serBsSjzVclhImFAF6UNLCHlH6pvh3Fr');
@@ -48,6 +53,7 @@ exports.deletePost = (req, res, next) => {
     }
 }
 
+//Récupérer tous les commentaires :
 exports.getAllComments = (req, res, next) => {
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, 'serBsSjzVclhImFAF6UNLCHlH6pvh3Fr');
@@ -69,7 +75,7 @@ exports.getAllComments = (req, res, next) => {
     }
 }
 
-
+//Supprimer un commentaire :
 exports.deleteComment = (req, res, next) => {
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, 'serBsSjzVclhImFAF6UNLCHlH6pvh3Fr');

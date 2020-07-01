@@ -1,12 +1,15 @@
+//Modules :
 const express = require('express');
 const router = express.Router();
 
+//Middlewares :
 const auth = require('../middleware/auth');
 const multer = require('../middleware/multer-config');
 
+//Controlleur :
 const postsCtrl = require('../controllers/posts');
 
-
+//Routes :
 router.get('/', auth, postsCtrl.getAllPosts);
 router.get('/:id', auth, postsCtrl.getAPosts);
 router.post('/', auth, postsCtrl.createPost);

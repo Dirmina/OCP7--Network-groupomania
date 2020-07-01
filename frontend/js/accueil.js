@@ -34,6 +34,7 @@ function generationPost(posts) {
         const article = document.createElement('article');
         article.className= "article"
 
+        //Si l'utilisateur à créer le post :
         if ((localStorage.userId == post.userId))  {
             article.innerHTML =`<img src="https://picsum.photos/34" />
                 <a href="${newUrlProfil}" class="pseudo__link">${post.firstName} ${post.lastName}</a>
@@ -50,7 +51,7 @@ function generationPost(posts) {
                 </form>`;
                 
             section__publishing.appendChild(article);
-
+            //bouton de suppression lié au post :
             const updateButton = document.getElementById(`updatePost${post.id}`);
             updateButton.addEventListener('click', () => {
                 document.getElementById(`form__update${post.id}`).style.display = "block";
@@ -58,6 +59,7 @@ function generationPost(posts) {
                                 
             const contentUpdate = document.getElementById(`contentUpdate${post.id}`)
             const submitUpdate = document.getElementById(`submit__update${post.id}`)
+            //Envoi de la modification :
             submitUpdate.addEventListener('click', () => {
                 fetch('http://localhost:3000/api/posts/' + post.id, {
                     method: 'PATCH',
@@ -77,8 +79,11 @@ function generationPost(posts) {
                 })
                 .catch (error => res.status(500).json({ error: "no put" }))
             })
+
+            //Bouton de suppression lié au post :
             const deleteButton = document.getElementById(`deletePost${post.id}`);
             deleteButton.addEventListener('click', () => {
+                //Si confirmation :
                 if (confirm('Etes-vous sûr ?')) {
                     fetch('http://localhost:3000/api/posts/' + post.id, {
                         method: 'DELETE',
@@ -101,7 +106,7 @@ function generationPost(posts) {
                 }
             })
         }
-
+        //Sinon si l'utilisateur n'a pas créé le post :
         else {
             article.innerHTML =`<img src="https://picsum.photos/34" />
                 <a href="${newUrlProfil}" class="pseudo__link">${post.firstName} ${post.lastName}</a>
@@ -119,6 +124,7 @@ const content = document.getElementById('content');
 const submitButton = document.getElementById('submitButton');
 const submitButtonComment = document.getElementById('submitButtonComment');
 
+//Récupération des posts :
 fetch('http://localhost:3000/api/posts',  {
     headers: { "Authorization": `Bearer ${localStorage.token}`}
 })
@@ -133,6 +139,7 @@ fetch('http://localhost:3000/api/posts',  {
 })
 .catch ( error => console.log('erreur niveau requête'));
 
+//Si on clique sur le bouton d'envoi de publication :
 submitButton.addEventListener('click', function(e) {
     fetch('http://localhost:3000/api/posts', {
         method: 'post',

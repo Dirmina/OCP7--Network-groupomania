@@ -1,10 +1,12 @@
+//Modules :
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const mysql = require('mysql');
 
+//Connexion :
 const connectdb = require('../database/connection-db');
-const { connect } = require('../app');
 
+//Inscription :
 exports.signup = (req, res, next) => {
     let firstName = req.body.firstName;
     let lastName = req.body.lastName;
@@ -13,9 +15,11 @@ exports.signup = (req, res, next) => {
 
     bcrypt.hash(password, 10)
     .then(hash => {
+        //Formatage SQL :
         let sqlInserts = [firstName, lastName, email, hash];
         let sql = "INSERT INTO Users VALUES (NULL, ?, ?, ?, ?, NULL, 0)"
         sql =  mysql.format(sql, sqlInserts);
+        //Promesse de connexion à la DB :
         new Promise((resolve, reject) => {
             connectdb.query(sql, (err, result) => {
                 if (err) reject({err})
@@ -27,6 +31,7 @@ exports.signup = (req, res, next) => {
     })
 }
 
+//Connexion :
 exports.login = (req, res, next) => {
     let email = req.body.email;
     let password = req.body.password;
@@ -35,12 +40,15 @@ exports.login = (req, res, next) => {
     sql = mysql.format(sql, sqlInserts);
     new Promise((resolve, reject) => {
         connectdb.query(sql, (err, result) => {
-            
+            //Si erreur :
             if (err) reject({ err })
 
+            //Si le resultat est vide :
             if (!result) {
                 reject({ message: "ID introuvable !"})
             }
+
+            //Sinon :
             else {
                 bcrypt.compare(password, result[0].password) 
                 .then(valid => { 
@@ -62,7 +70,7 @@ exports.login = (req, res, next) => {
     .catch(error => res.status(400).json({ error }));    
 }
 
-
+//Voir un profil :
 exports.seeAProfile = (req, res, next) => {
     const userId = req.params.id;
     let sqlInserts = [userId];
@@ -78,6 +86,7 @@ exports.seeAProfile = (req, res, next) => {
     .catch(error => res.status(400).json({ error }));    
 }
 
+//Mise à jour de mon profil :
 exports.updateUser = (req, res, next) => {
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, 'serBsSjzVclhImFAF6UNLCHlH6pvh3Fr');
@@ -98,6 +107,7 @@ exports.updateUser = (req, res, next) => {
     .catch(error => res.status(400).json({ error }));    
 }
 
+//Supprimer un utilisateur :
 exports.deleteUser = (req, res, next) => {
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, 'serBsSjzVclhImFAF6UNLCHlH6pvh3Fr');
@@ -114,4 +124,3 @@ exports.deleteUser = (req, res, next) => {
     .then(response => res.status(200).json({ response }))
     .catch(error => res.status(400).json({ error }));    
 }
-

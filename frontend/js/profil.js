@@ -23,9 +23,9 @@ function generationProfil(profil) {
     section__profil.appendChild(article);
 }
 
+//Programme :
 var parsedUrl = new URL(window.location.href);
 var id = parsedUrl.searchParams.get("id");
-
 fetch('http://localhost:3000/api/auth/profile/' + id,  {
     headers: { "Authorization": `Bearer ${localStorage.token}`}
 })

@@ -1,4 +1,4 @@
-
+//Functions :
 function urlDynamiqueProfil(userId) {
     //Déf d'une nouvelle URL 
     var url = new URL(window.location.href + "/../profil.html");
@@ -11,8 +11,8 @@ function urlDynamiqueProfil(userId) {
     //nouvelle url product.html personnalisée:
     return newUrlProfil = url.toString();
 }
-
 function generationPost(post) {
+    //Création Url pour le profil :
     urlDynamiqueProfil(post.response[0].userId)
     const section__publishing = document.getElementById('section__publishing');
     //Création de la publication :  
@@ -31,6 +31,7 @@ function generationPost(post) {
 
     const content = document.getElementById('content');
     const submitButton = document.getElementById('submitButton');
+    //Envoi d'un commentaire :
     submitButton.addEventListener('click', function(e) {
         fetch('http://localhost:3000/api/posts/' + id + '/comments', {
             method: 'post',
@@ -61,9 +62,8 @@ function generationComments(comments) {
             
         //Création des commentaires :  
         const article = document.createElement('article');
-        article.className= "article"
-
-        //création de l'article 'camera' avec newUrl de urlDynamique();
+        article.className= "article";
+        //Si c'est l'utilisateur ou le modérateur On rajoute des boutons :
         if ((localStorage.userId == comment.userId) || localStorage.modo == 1)  {
             article.innerHTML =`<img src="https://picsum.photos/34" />
                 <a href="${newUrlProfil}" class="pseudo__link">${comment.firstName} ${comment.lastName}</a>
@@ -79,12 +79,12 @@ function generationComments(comments) {
                 </form>`;
                 
             section__publishing.appendChild(article);
-
+            //Les boutons apparaissent :
             const updateButton = document.getElementById(`updatePost${comment.id}`);
             updateButton.addEventListener('click', () => {
                 document.getElementById(`form__update${comment.id}`).style.display = "block";
             })
-                                
+            //Modifier un commentaire :           
             const contentUpdate = document.getElementById(`contentUpdate${comment.id}`)
             const submitUpdate = document.getElementById(`submit__update${comment.id}`)
             submitUpdate.addEventListener('click', () => {
@@ -106,6 +106,7 @@ function generationComments(comments) {
                 })
                 .catch (error => res.status(500).json({ error: "no put" }))
             })
+            //Supprimer un commentaire :
             const deleteButton = document.getElementById(`deletePost${comment.id}`);
             deleteButton.addEventListener('click', () => {
                 if (confirm('Etes-vous sûr ?')) {
@@ -130,7 +131,7 @@ function generationComments(comments) {
                 }
             })
         }
-
+        //Sinon le commentaire apparait normalement :
         else {
             article.innerHTML =`<img src="https://picsum.photos/34" />
                 <a href="${newUrlProfil}" class="pseudo__link">${comment.firstName} ${comment.lastName}</a>
@@ -142,37 +143,37 @@ function generationComments(comments) {
 
 
 
-
+//Programme :
 var parsedUrl = new URL(window.location.href);
-    var id = parsedUrl.searchParams.get("id");
-    //ajout de l'id dans la requête, récupération de l'objet, Fetch version
-    fetch("http://localhost:3000/api/posts/" + id,  {
-        headers: { "Authorization": `Bearer ${localStorage.token}`}})
-    .then(function (response) { //promesse de réponse serveur
-        if (response.ok) {
-            response.json()
-            .then( post => { //promesse de json parsed
-                console.log('check contenu' + post.response[0].content)
-                generationPost(post);      
-            })
-        }
-    })
-    .catch(function() {
-        alert("Le serveur ne répond pas ! Nos équipes travaillent au bon rétablissement des services ! Merci de votre patience.")
-    })
+var id = parsedUrl.searchParams.get("id");
+//ajout de l'id dans la requête, récupération de l'objet, Fetch version
+fetch("http://localhost:3000/api/posts/" + id,  {
+    headers: { "Authorization": `Bearer ${localStorage.token}`}
+})
+.then(function (response) { //promesse de réponse serveur
+    if (response.ok) {
+       response.json()
+        .then( post => { //promesse de json parsed
+            generationPost(post);      
+        })
+    }
+})
+.catch(function() {
+    alert("Le serveur ne répond pas ! Nos équipes travaillent au bon rétablissement des services ! Merci de votre patience.")
+})
 
-    fetch("http://localhost:3000/api/posts/" + id + "/comments",  {
-        headers: { "Authorization": `Bearer ${localStorage.token}`}})
-    .then(function (response) { //promesse de réponse serveur
-        if (response.ok) {
-            response.json()
-            .then(function (comments) { //promesse de json parsed
-                generationComments(comments);
-            })
-        }
-    
-    })
-    .catch(function() {
-        alert("Le serveur ne répond pas ! Nos équipes travaillent au bon rétablissement des services ! Merci de votre patience.")
-    });
+fetch("http://localhost:3000/api/posts/" + id + "/comments",  {
+    headers: { "Authorization": `Bearer ${localStorage.token}`}
+})
+.then(function (response) { //promesse de réponse serveur
+    if (response.ok) {
+        response.json()
+        .then(function (comments) { //promesse de json parsed
+            generationComments(comments);
+        })
+    }
+})
+.catch(function() {
+    alert("Le serveur ne répond pas ! Nos équipes travaillent au bon rétablissement des services ! Merci de votre patience.")
+});
 

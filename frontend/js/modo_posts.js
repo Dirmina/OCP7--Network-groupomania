@@ -34,7 +34,7 @@ function generationPost(posts) {
     const article = document.createElement('article');
     article.className= "article"
 
-    //création de l'article 'camera' avec newUrl de urlDynamique();
+    //création du Post :
     article.innerHTML =`<img src="https://picsum.photos/34" />
         <a href="${newUrlProfil}" class="pseudo__link">${post.firstName} ${post.lastName}</a>
         <p class="article__p">${post.content}</p>
@@ -70,6 +70,7 @@ function generationPost(posts) {
     }     
 }
 
+//Programme :
 fetch('http://localhost:3000/api/modo/posts',  {
     headers: { "Authorization": `Bearer ${localStorage.token}`}
 })
