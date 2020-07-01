@@ -36,7 +36,7 @@ function generationComments(comments) {
         article.className= "article"
 
         //création du commentaire;
-        article.innerHTML =`<img src="https://picsum.photos/34" />
+        article.innerHTML =`<img src="https://picsum.photos/34" alt=""/>
             <a href="${newUrlProfil}" class="pseudo__link">${comment.firstName} ${comment.lastName}</a>
             <p>${comment.date}</p>
             <p class="article__p">${comment.content}</p>

@@ -35,7 +35,7 @@ function generationPost(posts) {
     article.className= "article"
 
     //création du Post :
-    article.innerHTML =`<img src="https://picsum.photos/34" />
+    article.innerHTML =`<img src="https://picsum.photos/34" alt="" />
         <a href="${newUrlProfil}" class="pseudo__link">${post.firstName} ${post.lastName}</a>
         <p>${post.date}</p>
         <p class="article__p">${post.content}</p>

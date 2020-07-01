@@ -19,14 +19,14 @@ function generationPost(post) {
     //Création de la publication :  
     const article = document.createElement('article');
     article.className= "article";
-    article.innerHTML =`<img src="https://picsum.photos/34" />
+    article.innerHTML =`<img src="https://picsum.photos/34" alt=""/>
         <a href="${newUrlProfil}" class="pseudo__link">${post.response[0].firstName} ${post.response[0].lastName}</a>
         <p>${post.response[0].date} à ${post.response[0].time}</p>
         <p class="article__p">${post.response[0].content}</p>
         <form method="POST" class="article">
             <label for="content">Ajouter une publication :</label>
             <textarea name="content" id="content" placeholder="Ajouter une commentaire..." row="25"></textarea>
-            <button type="submit" class="button__add--post" id="submitButton">Envoyer</button>
+            <button type="submit" class="button__add--post" id="submitButton" value="Ajouter un nouveau commentaire">Envoyer</button>
         </form>
         <section id="section__comments${post.response[0].id}></section>`;              
     section__publishing.appendChild(article);
@@ -67,7 +67,7 @@ function generationComments(comments) {
         article.className= "article";
         //Si c'est l'utilisateur ou le modérateur On rajoute des boutons :
         if ((localStorage.userId == comment.userId) || localStorage.modo == 1)  {
-            article.innerHTML =`<img src="https://picsum.photos/34" />
+            article.innerHTML =`<img src="https://picsum.photos/34" alt="" />
                 <a href="${newUrlProfil}" class="pseudo__link">${comment.firstName} ${comment.lastName}</a>
                 <p>${comment.date}</p>
                 <p class="article__p">${comment.content}</p>
@@ -77,6 +77,7 @@ function generationComments(comments) {
                 </ul>
                                     
                 <form method="post" id="form__update${comment.id}" class="update__post">
+                    <label for="contentUpdate">Mise à jour du commentaire :</label>
                     <textarea id="contentUpdate${comment.id}" name="contentUpdate">${comment.content}</textarea>
                     <input id="submit__update${comment.id}" type="submit" value="Envoyer" />
                 </form>`;
@@ -136,7 +137,7 @@ function generationComments(comments) {
         }
         //Sinon le commentaire apparait normalement :
         else {
-            article.innerHTML =`<img src="https://picsum.photos/34" />
+            article.innerHTML =`<img src="https://picsum.photos/34" alt=""/>
                 <a href="${newUrlProfil}" class="pseudo__link">${comment.firstName} ${comment.lastName}</a>
                 <p class="article__p">${comment.content}</p>`
             section__publishing.appendChild(article);

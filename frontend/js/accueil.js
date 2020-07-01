@@ -36,7 +36,7 @@ function generationPost(posts) {
 
         //Si l'utilisateur à créer le post :
         if ((localStorage.userId == post.userId))  {
-            article.innerHTML =`<img src="https://picsum.photos/34" />
+            article.innerHTML =`<img src="https://picsum.photos/34" alt="" />
                 <a href="${newUrlProfil}" class="pseudo__link">${post.firstName} ${post.lastName}</a>
                 <p>${post.date} à ${post.time}</p>
                 <p class="article__p">${post.content}</p>
@@ -109,7 +109,7 @@ function generationPost(posts) {
         }
         //Sinon si l'utilisateur n'a pas créé le post :
         else {
-            article.innerHTML =`<img src="https://picsum.photos/34" />
+            article.innerHTML =`<img src="https://picsum.photos/34" alt=""/>
                 <a href="${newUrlProfil}" class="pseudo__link">${post.firstName} ${post.lastName}</a>
                 <p>${post.date} à ${post.time}</p>
                 <p class="article__p">${post.content}</p>
