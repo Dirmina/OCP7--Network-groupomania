@@ -12,6 +12,7 @@ function urlDynamiqueProfil(userId) {
     return newUrlProfil = url.toString();
 }
 function generationPost(post) {
+    console.log(post.response[0])
     //Création Url pour le profil :
     urlDynamiqueProfil(post.response[0].userId)
     const section__publishing = document.getElementById('section__publishing');
@@ -20,6 +21,7 @@ function generationPost(post) {
     article.className= "article";
     article.innerHTML =`<img src="https://picsum.photos/34" />
         <a href="${newUrlProfil}" class="pseudo__link">${post.response[0].firstName} ${post.response[0].lastName}</a>
+        <p>${post.response[0].date} à ${post.response[0].time}</p>
         <p class="article__p">${post.response[0].content}</p>
         <form method="POST" class="article">
             <label for="content">Ajouter une publication :</label>
@@ -67,6 +69,7 @@ function generationComments(comments) {
         if ((localStorage.userId == comment.userId) || localStorage.modo == 1)  {
             article.innerHTML =`<img src="https://picsum.photos/34" />
                 <a href="${newUrlProfil}" class="pseudo__link">${comment.firstName} ${comment.lastName}</a>
+                <p>${comment.date}</p>
                 <p class="article__p">${comment.content}</p>
                 <ul class="actions__post">
                     <li><button class="link__post" id="updatePost${comment.id}">Modifier</button></li>

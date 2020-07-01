@@ -38,6 +38,7 @@ function generationComments(comments) {
         //création du commentaire;
         article.innerHTML =`<img src="https://picsum.photos/34" />
             <a href="${newUrlProfil}" class="pseudo__link">${comment.firstName} ${comment.lastName}</a>
+            <p>${comment.date}</p>
             <p class="article__p">${comment.content}</p>
             <ul class="actions__post">
                 <li><button class="link__post" id="deletePost${comment.id}">Supprimer</button></li>

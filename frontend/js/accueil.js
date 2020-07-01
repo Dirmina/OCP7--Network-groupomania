@@ -38,6 +38,7 @@ function generationPost(posts) {
         if ((localStorage.userId == post.userId))  {
             article.innerHTML =`<img src="https://picsum.photos/34" />
                 <a href="${newUrlProfil}" class="pseudo__link">${post.firstName} ${post.lastName}</a>
+                <p>${post.date} à ${post.time}</p>
                 <p class="article__p">${post.content}</p>
                 <ul class="actions__post">
                     <li><a class="link__post" href="${newUrl}">Voir plus...</a></li>
@@ -110,6 +111,7 @@ function generationPost(posts) {
         else {
             article.innerHTML =`<img src="https://picsum.photos/34" />
                 <a href="${newUrlProfil}" class="pseudo__link">${post.firstName} ${post.lastName}</a>
+                <p>${post.date} à ${post.time}</p>
                 <p class="article__p">${post.content}</p>
                 <ul>
                     <li><a class="link__post" href="${newUrl}">Voir plus...<a></li>
