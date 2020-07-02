@@ -33,21 +33,26 @@
         <form method="POST">       
             <label for="firstName">prénom<strong>*</strong> : </label>
             <input type="text" name="firstName" id="firstName" placeholder="jean" pattern="^[A-Za-zàâäéèêëïîôöùûüç]+([-']{1}[A-Za-zàâäéèêëïîôöùûüç]+)*$" required /><br />
+            <p id="error_firstName" class="error__input"></p>
 
             <label for="lastName">nom<strong>*</strong> : </label>
             <input type="text" name="lastName" id="lastName" placeholder="dupont" pattern="^[A-Za-zàâäéèêëïîôöùûüç]+([ \-']{1}[A-Za-zàâäéèêëïîôöùûüç]+)*$" required /><br />
+            <p id="error_lastName" class="error__input"></p>
 
             <label for="email">E-mail<strong>*</strong> : </label>
             <input type="email" name="email" id="email" placeholder="jean.dupont@mail.com" required /><br />
+            <p id="error_email" class="error__input"></p>
 
-            <button type="submit" class="button__link" id="submitButton">Mettre à jour</button>
+            <button type="submit" class="button__link" id="submitButton" value="Envoyez la mise à jour de votre profil">Mettre à jour</button>
         </form>
+        <p class="mandatory__input">les champs suivit d'un astérisque <strong>*</strong> sont obligatoires</p>
         </section>
 
         <section class="delete">
             <button id="deleteButton" class="delete__account">Supprimer mon compte</button>
         </section>
         <script src="../js/settings.js" async defer></script>
+        <script src="../js/message_input_settings.js" async defer></script>
         <script src="../js/modo.js" async defer></script>
         <script src="../js/logout.js" async defer></script>
         <script src="../js/myprofile.js" async defer></script>

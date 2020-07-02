@@ -19,16 +19,19 @@
             <form method="post">       
                 <label for="email">E-mail<strong>*</strong> : </label>
                 <input type="email" name="email" id="email" placeholder="jean.dupont@mail.com" required /><br />
+                <p id="error_email" class="error__input"></p>
 
                 <label for="password">Mot de passe<strong>*</strong> : </label>
                 <input type="password" name="password" id="password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$" title="doit contenir au moins 8 caractères, 1 Majuscule, 1 minuscule et 1 chiffre" required /><br />
 
                 <a href="signup.html" class="inverse__link">Vous n'avez pas de compte ?</a>
-                <button type="submit" class="button__link" id="submitButton" disabled>Envoyer</button>
+                <button type="submit" class="button__link" id="submitButton" value="soumettez vos identifiants" disabled>Envoyer</button>
             </form>
+            <p class="mandatory__input">les champs suivit d'un astérisque <strong>*</strong> sont obligatoires</p>
             
         </section>
         
         <script src="../js/login.js" async defer></script>
+        <script src="../js/message_input_login.js" async defer></script>
     </body>
 </html>
