@@ -6,8 +6,20 @@ const mysql = require('mysql');
 //Connexion :
 const connectdb = require('../database/connection-db');
 
+//Regex : 
+const regexFirstName = /^[A-Za-zàâäéèêëïîôöùûüç]+([-']{1}[A-Za-zàâäéèêëïîôöùûüç]+)*$/
+const regexLastName = /^[A-Za-zàâäéèêëïîôöùûüç]+([ \-']{1}[A-Za-zàâäéèêëïîôöùûüç]+)*$/
+const regexEmail = /[A-Za-z0-9_'~-]+(?:\.[A-Za-z0-9_'~-]+)*@(?:[A-Za-z0-9](?:[A-Za-z0-9-]*[a-z0-9])?\.)+[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?/
+const regexPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/
+const regexSpace = /^[ ]+$/
 //Inscription :
 exports.signup = (req, res, next) => {
+    if ( req.body.firstName == '' || req.body.lastName == '' || req.body.email == '' || req.body.password == '' || regexSpace.test(req.body.firstName) || regexSpace.test(req.body.lastName) || regexSpace.test(req.body.email) || regexSpace.test(req.body.password)) {
+        return res.status(500).json({ error: 'Des champs sont vides !' });
+    }
+    if (!regexFirstName.test(req.body.firstName) || !regexLastName.test(req.body.lastName) || !regexEmail.test(req.body.email) || !regexPassword.test(req.body.password)) {
+        return res.status(500).json({ error: 'Des champs sont invalides' });
+    }
     let firstName = req.body.firstName;
     let lastName = req.body.lastName;
     let email = req.body.email;
@@ -33,6 +45,12 @@ exports.signup = (req, res, next) => {
 
 //Connexion :
 exports.login = (req, res, next) => {
+    if (req.body.email == '' || req.body.password == '' || regexSpace.test(req.body.email) || regexSpace.test(req.body.password)) {
+        return res.status(500).json({ error: 'Des champs sont vides' });
+    }
+    if (!regexEmail.test(req.body.email) || !regexPassword.test(req.body.password)) {
+        return res.status(500).json({ error: 'Des champs sont invalides' });
+    }
     let email = req.body.email;
     let password = req.body.password;
     let sqlInserts = [email];
@@ -88,6 +106,13 @@ exports.seeAProfile = (req, res, next) => {
 
 //Mise à jour de mon profil :
 exports.updateUser = (req, res, next) => {
+    if ( req.body.firstName == '' || req.body.lastName == '' || req.body.email == '' || regexSpace.test(req.body.email) || regexSpace.test(req.body.firstName) || regexSpace.test(req.body.lastName) ) {
+        return res.status(500).json({ error: 'Des champs sont vides' });
+    }
+    if (!regexFirstName.test(req.body.firstName) || !regexLastName.test(req.body.lastName) || !regexEmail.test(req.body.email)) {
+        return res.status(500).json({ error: 'Des champs sont invalides' });
+    }
+
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, 'serBsSjzVclhImFAF6UNLCHlH6pvh3Fr');
     let userId = decodedToken.userId;
@@ -103,7 +128,7 @@ exports.updateUser = (req, res, next) => {
             resolve({ result });
         }) 
     })
-    .then(response => res.status(200).json({ response }))
+    .then(response => res.status(204).json({ response }))
     .catch(error => res.status(400).json({ error }));    
 }
 
@@ -121,6 +146,6 @@ exports.deleteUser = (req, res, next) => {
             resolve({message : 'Utilisateur supprimé'});
         }) 
     })
-    .then(response => res.status(200).json({ response }))
+    .then(response => res.status(204).json({ response }))
     .catch(error => res.status(400).json({ error }));    
 }

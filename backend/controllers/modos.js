@@ -48,7 +48,7 @@ exports.deletePost = (req, res, next) => {
                 resolve({message : 'Post supprimé !'});
             })
         })
-        .then(response => res.status(201).json({ response }))
+        .then(response => res.status(204).json({ response }))
         .catch(error => res.status(400).json({ error }));
     }
 }
@@ -70,7 +70,7 @@ exports.getAllComments = (req, res, next) => {
                 resolve(result);
             })
         })
-        .then(response => res.status(201).json({ response }))
+        .then(response => res.status(200).json({ response }))
         .catch(error => res.status(400).json({ error }));
     }
 }
@@ -91,7 +91,7 @@ exports.deleteComment = (req, res, next) => {
                 resolve({message : 'Commentaire supprimé !'});
             })
         })
-        .then(response => res.status(201).json({ response }))
+        .then(response => res.status(204).json({ response }))
         .catch(error => res.status(400).json({ error }));
     }
 }

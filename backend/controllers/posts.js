@@ -3,22 +3,29 @@ const mysql = require('mysql');
 const jwt = require('jsonwebtoken');
 //Connexion DB :
 const connectdb = require('../database/connection-db');
+//Regex : 
+const regexSpace = /^[ ]+$/
 
 //Création d'une publication :
 exports.createPost = (req, res, next) => {
-    let content = req.body.content;
-    let userId = req.body.userId;
-    let sqlInserts = [userId, content];
-    let sql = "INSERT INTO Posts VALUES(NULL, ?, NOW(), NOW(), ?, 0, NULL)";
-    sql = mysql.format(sql, sqlInserts);
-    new Promise((resolve, reject) => {
-        connectdb.query(sql, (err, result) => {
-            if (err) reject({err})
-            resolve({message: "New Post !"})
+    if (req.body.content == '' || regexSpace.test(req.body.content)) {
+        return res.status(500).json({ error: 'La publication semble vide !' });
+    }
+    else {
+        let content = req.body.content;
+        let userId = req.body.userId;
+        let sqlInserts = [userId, content];
+        let sql = "INSERT INTO Posts VALUES(NULL, ?, NOW(), NOW(), ?, 0, NULL)";
+        sql = mysql.format(sql, sqlInserts);
+        new Promise((resolve, reject) => {
+            connectdb.query(sql, (err, result) => {
+                if (err) reject({err})
+                resolve({message: "New Post !"})
+            })
         })
-    })
-    .then(response => res.status(201).json({ response }))
-    .catch(error => res.status(400).json({ error }));
+        .then(response => res.status(201).json({ response }))
+        .catch(error => res.status(400).json({ error }));
+    }
 }
 
 //Voir tous les posts :
@@ -31,12 +38,18 @@ exports.getAllPosts = (req, res, next) => {
     ORDER BY posts.date_creation DESC`;
     new Promise((resolve, reject) =>{
         connectdb.query(sql, function (err, result) {
-            if (err) reject({err});
+            if (err) reject({ err });
+            for (i = 0; i < result.length; i++) {
+                if (result[i].content == '') {
+                    console.log('coucou')
+                }
+            }
             resolve(result)
+            
         });
     })
     .then (response => res.status(200).json({ response } ))
-    .catch (error => res.status(200).json({ error } ))
+    .catch (error => res.status(400).json({ error } ))
 }
 
 //Voir une publication :
@@ -58,11 +71,14 @@ exports.getAPosts = (req, res, next) => {
         });
     })
     .then (response => res.status(200).json({ response } ))
-    .catch (error => res.status(200).json({ error } ))
+    .catch (error => res.status(400).json({ error } ))
 }
 
 //Mettre à jour son post :
 exports.updatePost = (req, res, next) => {
+    if (req.body.content == '' || regexSpace.test(req.body.content)) {
+        return res.status(500).json({ error: 'Il semble que votre publication soit vide !' });
+    }
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, 'serBsSjzVclhImFAF6UNLCHlH6pvh3Fr');
     const userId = decodedToken.userId;
@@ -119,13 +135,16 @@ exports.deletePost = (req, res, next) => {
             }
         });
     })
-    .then(response => res.status(200).json({ response }))
+    .then(response => res.status(204).json({ response }))
     .catch(error => res.status(400).json({ error }));
 }
 
 //COMMENTS
 
 exports.createComment = (req, res, next) => {
+    if (req.body.content == '' || regexSpace.test(req.body.content)) {
+        return res.status(500).json({ error: 'Il semble que votre publication est vide !' });
+    }
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, 'serBsSjzVclhImFAF6UNLCHlH6pvh3Fr');
     const userId = decodedToken.userId;
@@ -164,6 +183,9 @@ exports.getComments = (req, res, next) => {
 }
 
 exports.updateComment = (req, res, next) => {
+    if (req.body.content == '' || regexSpace.test(req.body.content)) {
+        return res.status(500).json({ error: 'Il semble que votre publication est vide !' });
+    }
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, 'serBsSjzVclhImFAF6UNLCHlH6pvh3Fr');
     const userId = decodedToken.userId;
@@ -189,7 +211,7 @@ exports.updateComment = (req, res, next) => {
             }
         })
     })
-    .then( response => res.status(200).json( response ))
+    .then( response => res.status(204).json( response ))
     .catch ( error => res.status(400).json({ error }));  
 }
 
