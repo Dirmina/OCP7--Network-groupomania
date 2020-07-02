@@ -278,6 +278,14 @@ input:invalid {
   }
 }
 
+.mandatory__input {
+  font-size: 0.8vw;
+}
+
+.error__input {
+  color: red;
+}
+
 textarea {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   margin: auto;
