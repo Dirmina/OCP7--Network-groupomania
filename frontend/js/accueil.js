@@ -122,10 +122,16 @@ function generationPost(posts) {
 }
 
 //Envoyer le content
+const form = document.querySelector('form');
 const content = document.getElementById('content');
 const submitButton = document.getElementById('submitButton');
 const submitButtonComment = document.getElementById('submitButtonComment');
 
+form.addEventListener('input', () => {
+    if (content.value) {
+        submitButton.removeAttribute('disabled');
+    }
+})
 //Récupération des posts :
 fetch('http://localhost:3000/api/posts',  {
     headers: { "Authorization": `Bearer ${localStorage.token}`}
@@ -140,6 +146,11 @@ fetch('http://localhost:3000/api/posts',  {
     }
 })
 .catch ( error => console.log('erreur niveau requête'));
+form.addEventListener('change', function() {
+    if(email.checkValidity()) {
+        submitButton.removeAttribute('disabled');
+    }
+});
 
 //Si on clique sur le bouton d'envoi de publication :
 submitButton.addEventListener('click', function(e) {
